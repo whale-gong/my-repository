@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人剪辑作品集 | Portfolio</title>
+    <!-- 使用 Tailwind CSS 进行快速美化 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .glass-nav {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            transition: 0.3s;
+        }
+
+        /* 弹窗样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .iframe-container {
+            width: 90%;
+            max-width: 1000px;
+            aspect-ratio: 16/9;
+            position: relative;
+        }
+
+        iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+
+<body class="bg-[#0a0a0a] text-white">
+
+    <!-- 导航栏 -->
+    <nav
+        class="fixed top-0 w-full z-50 glass-nav border-b border-white/10 py-4 px-6 md:px-12 flex justify-between items-center">
+        <div class="text-xl font-bold italic tracking-wider text-blue-500">MY.STUDIO</div>
+        <div class="hidden md:flex space-x-8 text-sm">
+            <a href="#home" class="hover:text-blue-400">首页</a>
+            <a href="#works" class="hover:text-blue-400">作品集</a>
+            <a href="#contact" class="hover:text-blue-400">联系</a>
+        </div>
+    </nav>
+
+    <!-- 英雄内容区 -->
+    <header id="home" class="h-screen flex flex-col justify-center items-center text-center px-4">
+        <h2 class="text-blue-500 font-bold tracking-[0.3em] mb-4 text-xs">VIDEO EDITOR</h2>
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6">做有温度的<span class="text-blue-500">剪辑人</span></h1>
+        <p class="text-zinc-500 max-w-lg mb-10 leading-relaxed">提供商业广告、Vlog、纪录片等全流程剪辑服务。<br>让画面说话，让节奏共鸣。</p>
+        <a href="#works"
+            class="bg-blue-600 hover:bg-blue-700 px-10 py-4 rounded-full font-bold transition shadow-lg">预览我的作品</a>
+    </header>
+
+    <!-- 作品列表区 -->
+    <section id="works" class="py-24 px-6 md:px-20">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-3xl font-bold mb-12 flex items-center">
+                <span class="w-2 h-8 bg-blue-500 mr-4"></span> 精选案例
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+
+                <!-- 作品 1：修改这里的 BV 号 -->
+                <div class="video-card group cursor-pointer" onclick="openVideo('BV1GJ411x7u7')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden mb-4 bg-zinc-900">
+                        <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800"
+                            class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-play text-4xl text-white/50 group-hover:text-blue-500 transition"></i>
+                        </div>
+                    </div>
+                    <h4 class="text-xl font-bold">2024 剪辑 Demo Reel</h4>
+                    <p class="text-zinc-500 text-sm">快节奏剪辑 / 视觉动效 / 综合展示</p>
+                </div>
+
+                <!-- 作品 2：修改这里的 BV 号 -->
+                <div class="video-card group cursor-pointer" onclick="openVideo('BV1vK4y1P7v9')">
+                    <div class="relative aspect-video rounded-xl overflow-hidden mb-4 bg-zinc-900">
+                        <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=800"
+                            class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-play text-4xl text-white/50 group-hover:text-blue-500 transition"></i>
+                        </div>
+                    </div>
+                    <h4 class="text-xl font-bold">商业广告：未来都市</h4>
+                    <p class="text-zinc-500 text-sm">调色 / 品牌叙事 / 4K 高画质</p>
+                </div>
+
+                <!-- 如需增加更多作品，直接复制上面的 div 块即可 -->
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系区 -->
+    <footer id="contact" class="py-24 bg-zinc-950 border-t border-white/5">
+        <div class="max-w-4xl mx-auto text-center px-6">
+            <h3 class="text-3xl font-bold mb-8 italic">Let's Create Together!</h3>
+            <p class="text-zinc-400 mb-12">如果你有项目合作需求，欢迎通过以下方式找到我：</p>
+
+            <div class="flex flex-wrap justify-center gap-6 md:gap-12">
+                <div class="flex items-center gap-3">
+                    <i class="fab fa-weixin text-green-500 text-2xl"></i>
+                    <span class="font-medium text-zinc-300">微信号：YourID</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-envelope text-blue-500 text-2xl"></i>
+                    <span class="font-medium text-zinc-300">Email: your@mail.com</span>
+                </div>
+            </div>
+            <p class="mt-16 text-zinc-700 text-xs">© 2025 Video Editor Portfolio. 网页托管于 Vercel.</p>
+        </div>
+    </footer>
+
+    <!-- 视频弹窗 -->
+    <div id="videoModal" class="modal" onclick="closeVideo()">
+        <div class="absolute top-8 right-8 text-3xl cursor-pointer hover:text-blue-500"><i class="fas fa-times"></i>
+        </div>
+        <div class="iframe-container" onclick="event.stopPropagation()">
+            <iframe id="player" src="" scrolling="no" border="0" frameborder="no" framespacing="0"
+                allowfullscreen="true"></iframe>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('videoModal');
+        const player = document.getElementById('player');
+
+        function openVideo(bvid) {
+            // 拼接 B 站嵌入链接
+            // high_quality=1 强制高清；autoplay=1 自动播放
+            const url = `https://player.bilibili.com/player.html?bvid=${bvid}&page=1&high_quality=1&autoplay=1&danmaku=0`;
+            player.src = url;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // 禁止页面滚动
+        }
+
+        function closeVideo() {
+            modal.style.display = 'none';
+            player.src = ''; // 停止播放
+            document.body.style.overflow = 'auto'; // 恢复滚动
+        }
+
+        // 按 Esc 键也可以关闭视频
+        document.onkeydown = function (e) {
+            if (e.key === "Escape") closeVideo();
+        };
+    </script>
+</body>
+
+</html>
