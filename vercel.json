@@ -1,0 +1,12 @@
+{
+    "routes": [
+        {
+            "src": "/588b680f95b24bf36aef18bd38d8e985.txt",
+            "dest": "/588b680f95b24bf36aef18bd38d8e985.txt"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/index.html"
+        }
+    ]
+}
