@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人剪辑作品集 | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            transition: 0.3s;
+        }
+
+        /* 弹窗样式修复：去掉了原来的 !important 冲突 */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .iframe-container {
+            width: 90%;
+            max-width: 1000px;
+            aspect-ratio: 16/9;
+            position: relative;
+        }
+
+        iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border-radius: 12px;
+        }
+
+        header,
+        section {
+            scroll-margin-top: 80px;
+        }
+    </style>
+</head>
+
+
+<body class="bg-[#f8f8fa] text-zinc-900">
+    <nav
+        class="fixed top-0 w-full z-50 glass-nav border-b border-zinc-200 py-2.5 px-6 md:px-12 flex justify-between items-center">
+        <div class="text-lg font-bold italic tracking-wider text-zinc-500">龚芷利的作品集</div>
+        <div class="hidden md:flex items-center space-x-8 text-sm">
+            <a href="#home" class="text-zinc-600 hover:text-orange-500 transition"> 首页 </a>
+            <div class="relative group">
+                <button
+                    class="text-zinc-600 hover:text-orange-500 flex items-center gap-1 py-1 focus:outline-none transition">
+                    作品集 <i class="fas fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
+                </button>
+                <div
+                    class="absolute left-1/2 -translate-x-1/2 mt-0 w-36 bg-zinc-100 border border-zinc-100 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[60] overflow-hidden">
+                    <div class="py-1">
+                        <a href="#xuanchuanpian"
+                            class="block px-4 py-2 text-xs text-zinc-600 hover:bg-zinc-200 hover:text-orange-600 transition">宣传片</a>
+                        <a href="#koubo"
+                            class="block px-4 py-2 text-xs text-zinc-600 hover:bg-zinc-200 hover:text-orange-600 transition">口播</a>
+                        <a href="#xinxiliu"
+                            class="block px-4 py-2 text-xs text-zinc-600 hover:bg-zinc-200 hover:text-orange-600 transition">信息流</a>
+                        <a href="#huodongkuaijian"
+                            class="block px-4 py-2 text-xs text-zinc-600 hover:bg-zinc-200 hover:text-orange-600 transition">活动快剪</a>
+                    </div>
+                </div>
+            </div>
+            <a href="#contact" class="text-zinc-600 hover:text-orange-500 transition"> 联系 </a>
+        </div>
+    </nav>
+
+    <div class="h-16 md:h-20"></div>
+    <div id="home" class="relative -top-24"></div>
+
+    <header
+        class="relative h-[80vh] flex flex-col justify-center items-center text-center px-4 md:px-10 overflow-hidden bg-[#f8f8fa]">
+        <div
+            class="relative w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl border border-zinc-200 bg-zinc-900">
+            <video autoplay muted loop playsinline poster="hero-bg.jpg"
+                class="absolute inset-0 w-full h-full object-cover"
+                style="filter: brightness(0.9) contrast(1.1) sepia(0.3) saturate(1.2);">
+                <source src="hero-bg.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60"></div>
+            <div class="relative z-10 h-full flex flex-col justify-center items-center">
+                <h2 class="text-orange-400 font-bold tracking-[0.3em] mb-4 text-xs">VIDEO EDITOR</h2>
+                <h1 class="text-4xl md:text-7xl font-extrabold mb-6 leading-tight text-white">个人剪辑 <span
+                        class="text-orange-500"> 作品集</span></h1>
+                <p
+                    class="bg-black/25 rounded-full max-w-lg mx-auto mb-10 px-6 leading-relaxed drop-shadow-md text-white md:text-base">
+                    提供口播、 Vlog 、宣传片等剪辑服务。 <br> 让画面说话，让节奏共鸣。
+                </p>
+
+
+                <a href="#xuanchuanpian"
+                    class="bg-orange-600 hover:bg-orange-700 text-white px-10 py-4 rounded-full font-bold transition shadow-lg inline-block">预览我的作品</a>
+            </div>
+        </div>
+    </header>
+
+    <!--宣传片 3个框版本
+    <section id="xuanchuanpian" class="py-12 px-6 md:px-20 relative">
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-600/5 rounded-full blur-[120px] -z-10"></div>
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-white/80 backdrop-blur-xl border border-zinc-200 rounded-[2rem] p-8 md:p-8 shadow-xl">
+                <h3 class="text-3xl font-bold mb-12 flex items-center text-zinc-900"><span
+                        class="w-2 h-8 bg-blue-500 mr-4"></span> 宣传片</h3>
+                <div id="commercial" class="mb-10">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+                        宣传片 1 
+                        <div class="video-card group cursor-pointer" onclick="openVideo('BV1BdftBRE6q')">
+                            <div
+                                class="relative aspect-video rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200">
+                                <img src="shanjicao.jpg"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out">
+                                <div
+                                    class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30 opacity-90">
+                                    <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
+                                </div>
+                            </div>
+                           class="text-xl font-bold text-zinc-800 tracking-wide group-hover:text-orange-600 transition-colors">
+                                善纪草</h4>
+                            <p class="text-zinc-500 text-xs mt-1">产品宣传 / 护肤品 / </p>
+                        </div>
+
+                        宣传片 2 
+                        宣传片 3 
+                    
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+   恢复3个的时候删除这里 -->
+
+    <!--宣传片  2个框版本 -->
+    <section id="xuanchuanpian" class="py-12 px-6 md:px-20 relative">
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-600/5 rounded-full blur-[120px] -z-10"></div>
+
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-white/80 backdrop-blur-xl border border-zinc-200 rounded-[2rem] p-8 md:p-10 shadow-xl">
+                <h3 class="text-3xl font-bold mb-12 flex items-center text-zinc-900">
+                    <span class="w-2 h-8 bg-blue-500 mr-4"></span> 宣传片
+                </h3>
+
+                <div id="commercial" class="mb-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+
+                        <!--宣传片1-->
+                        <div class="video-card group cursor-pointer" onclick="openVideo('BV1BdftBRE6q')">
+                            <div
+                                class="relative aspect-video rounded-2xl overflow-hidden mb-4 bg-zinc-100 border border-zinc-200 shadow-sm">
+                                <img src="shanjicao.jpg"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out"
+                                    alt="宣传片封面">
+                                <div
+                                    class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/30 opacity-90  transition-colors">
+                                    <i class="fas fa-play text-white text-xs ml-0.5"></i>
+                                </div>
+                            </div>
+                            <h4
+                                class="text-1g font-bold text-zinc-800 tracking-wide group-hover:text-blue-600 transition-colors">
+                                善纪草</h4>
+                            <p class="text-zinc-500 text-sm mt-2">产品宣传 / 护肤品 / </p>
+                        </div>
+
+                        <!--宣传片2
+                        <div class="video-card group cursor-pointer" onclick="openVideo('这里填入第二个BV号')">
+                            <div
+                                class="relative aspect-video rounded-2xl overflow-hidden mb-4 bg-zinc-100 border border-zinc-200 shadow-sm">
+                                <img src="xuanchuan_02.jpg"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out"
+                                    alt="宣传片封面">
+                                <div
+                                    class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/30 opacity-90  transition-colors">
+                                    <i class="fas fa-play text-white text-xs ml-0.5"></i>
+                                </div>
+                            </div>
+                            <h4
+                                class="text-1g font-bold text-zinc-800 tracking-wide group-hover:text-orange-600 transition-colors">
+                                肤研</h4>
+                            <p class="text-zinc-500 text-sm mt-2">品牌叙事 / 调色 / 节奏把控</p>
+                        </div>
+                       恢复时删除这里 -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!--口播 -->
+    <section id="koubo" class="py-12 px-6 md:px-20 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-white/80 backdrop-blur-xl border border-zinc-200 rounded-[2rem] p-8 md:p-8 shadow-xl">
+                <h3 class="text-3xl font-bold mb-12 flex items-center text-zinc-900"><span
+                        class="w-2 h-8 bg-orange-500 mr-4"></span> 口播</h3>
+
+                <!--口播1 -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="video-card group cursor-pointer" onclick="openVideo('BV1dNFUzVECb')">
+                        <div
+                            class="relative aspect-[9/16] rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200">
+                            <img src="dazifengmian.jpg"
+                                class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out">
+                            <div
+                                class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30 opacity-90">
+                                <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
+                            </div>
+                        </div>
+                        <h4
+                            class="text-1g font-bold text-zinc-800 tracking-wide group-hover:text-orange-600 transition-colors">
+                            搭子的时代</h4>
+                        <p class="text-zinc-500 text-xs mt-1">字幕包装 / 音效设计 / 网感节奏</p>
+                    </div>
+
+                    <!--口播 2
+                    <div class="video-card group cursor-pointer" onclick="openVideo('BV1tNf3BREJa')">
+                        <div
+                            class="relative aspect-[9/16] rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200">
+                            <img src="shangye.jpg"
+                                class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out">
+                            <div
+                                class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30 opacity-90">
+                                <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
+                            </div>
+                        </div>
+                        <h4
+                            class="text-1g font-bold text-zinc-800 tracking-wide group-hover:text-orange-600 transition-colors">
+                            商业的本质</h4>
+                        <p class="text-zinc-500 text-xs mt-1">IP / 字幕包装</p>
+                    </div>
+                    -->
+
+                    <!--口播 3-->
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--信息流 -->
+    <section id="xinxiliu" class="py-12 px-6 md:px-20 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-white/80 backdrop-blur-xl border border-zinc-200 rounded-[2rem] p-8 md:p-8 shadow-xl">
+                <h3 class="text-3xl font-bold mb-12 flex items-center text-zinc-900"><span
+                        class="w-2 h-8 bg-green-500 mr-4"></span> 信息流</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                    <!--信息流 1-->
+                    <div class="video-card group cursor-pointer" onclick="openVideo('BV1jNFUz5Ew3')">
+                        <div
+                            class="relative aspect-[9/16] rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200">
+                            <img src="fuyanmeibai-fengmian.jpg"
+                                class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out">
+                            <div
+                                class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30 opacity-90">
+                                <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
+                            </div>
+                        </div>
+                        <h4
+                            class="text-1g font-bold text-zinc-800 tracking-wide group-hover:text-green-600 transition-colors">
+                            肤研</h4>
+                        <p class="text-zinc-500 text-xs mt-1">护肤品 / 种草 / 网感</p>
+                    </div>
+
+                    <!--信息流 2-->
+                    <div class="video-card group cursor-pointer" onclick="openVideo('BV1wtcTz3Egw')">
+                        <div
+                            class="relative aspect-[9/16] rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200">
+                            <img src="jxr.jpg"
+                                class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out">
+                            <div
+                                class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30 opacity-90">
+                                <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
+                            </div>
+                        </div>
+                        <h4
+                            class="text-1g font-bold text-zinc-800 tracking-wide group-hover:text-green-600 transition-colors">
+                            口袋鸡胸肉</h4>
+                        <p class="text-zinc-500 text-xs mt-1">零食 / 网感</p>
+                    </div>
+
+                    <!--信息流 3-->
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--活动快剪 -->
+    <section id="huodongkuaijian" class="py-12 px-6 md:px-20 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-white/80 backdrop-blur-xl border border-zinc-200 rounded-[2rem] p-8 md:p-8 shadow-xl">
+                <h3 class="text-3xl font-bold mb-12 flex items-center text-zinc-900"><span
+                        class="w-2 h-8 bg-blue-500 mr-4"></span> 活动快剪</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+                    <!--活动快剪 1 -->
+                    <div class="video-card group cursor-pointer" onclick="openVideo('BV1CrcKzkEsk')">
+                        <div
+                            class="relative aspect-video rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200">
+                            <img src="weixing.jpg"
+                                class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out">
+                            <div
+                                class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30 opacity-90">
+                                <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
+                            </div>
+                        </div>
+                        <h4
+                            class="text-1g font-bold text-zinc-800 tracking-wide group-hover:text-blue-600 transition-colors">
+                            伟星</h4>
+                        <p class="text-zinc-500 text-xs mt-1">快节奏剪辑 / 视觉动效 / </p>
+                    </div>
+
+                    <!--活动快剪 2 -->
+                    <div class="video-card group cursor-pointer" onclick="openVideo('BV1uzcgzhE5R')">
+                        <div
+                            class="relative aspect-video rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200">
+                            <img src="suxiaoniu.jpg"
+                                class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out">
+                            <div
+                                class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30 opacity-90">
+                                <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
+                            </div>
+                        </div>
+                        <h4
+                            class="text-1g font-bold text-zinc-800 tracking-wide group-hover:text-blue-600 transition-colors">
+                            苏小牛</h4>
+                        <p class="text-zinc-500 text-xs mt-1"> 快节奏 / 宣传</p>
+                    </div>
+
+                    <!--活动快剪 3 -->
+                    <div class="video-card group cursor-pointer" onclick="openVideo('BV1SBcgzcEar')">
+                        <div
+                            class="relative aspect-video rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200">
+                            <img src="aiqinhai.jpg"
+                                class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out">
+                            <div
+                                class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30 opacity-90">
+                                <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
+                            </div>
+                        </div>
+                        <h4
+                            class="text-1g font-bold text-zinc-800 tracking-wide group-hover:text-blue-600 transition-colors">
+                            交房活动</h4>
+                        <p class="text-zinc-500 text-xs mt-1">品牌 / 高画质 / 节奏</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="py-24 bg-white border-t border-zinc-200">
+        <div class="max-w-4xl mx-auto text-center px-6">
+            <h3 class="text-3xl font-bold mb-8 italic text-zinc-900">Let's Create Together!</h3>
+            <p class="text-zinc-500 mb-12">如果你有项目合作需求，欢迎通过以下方式找到我：</p>
+            <div class="flex flex-wrap justify-center gap-6 md:gap-12">
+                <div class="flex items-center gap-3">
+                    <i class="fab fa-weixin text-green-600 text-2xl"></i>
+                    <span class="font-medium text-zinc-700">微信号: G1980019029</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-envelope text-blue-600 text-2xl"></i>
+                    <span class="font-medium text-zinc-700">Email: 1980019029@qq.com</span>
+                </div>
+            </div>
+            <p class="mt-16 text-zinc-400 text-xs"> 2026 Video Editor Portfolio. </p>
+        </div>
+    </footer>
+
+    <div id="videoModal" class="modal" onclick="closeVideo()">
+        <div class="absolute top-8 right-8 text-3xl cursor-pointer hover:text-orange-500 text-white"><i
+                class="fas fa-times"></i></div>
+        <div class="iframe-container" onclick="event.stopPropagation()">
+            <iframe id="player" src="" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('videoModal');
+        const player = document.getElementById('player');
+
+        function openVideo(bvid) {
+            if (!bvid) return;
+            // 修复：强制高清并显示控制条
+            const url = `https://player.bilibili.com/player.html?bvid=${bvid}&page=1&high_quality=1&autoplay=1&danmaku=0&as_wide=1`;
+            player.src = url;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVideo() {
+            modal.style.display = 'none';
+            player.src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        document.onkeydown = function (e) {
+            if (e.key === "Escape") closeVideo();
+        };
+    </script>
+</body>
+
+</html>
