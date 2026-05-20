@@ -1,12 +1,16 @@
 {
-  "routes": [
-    {
-      "src": "/588bb80f95b24bf36aef18bd38d8e985.txt",
-      "dest": "/588bb80f95b24bf36aef18bd38d8e985.txt"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ]
+    "routes": [
+        {
+            "src": "/588bb80f95b24bf36aef18bd38d8e985.txt",
+            "dest": "/588bb80f95b24bf36aef18bd38d8e985.txt"
+        },
+        {
+            "src": "/",
+            "dest": "/index.html"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/index.html"
+        }
+    ]
 }
