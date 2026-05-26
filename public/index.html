@@ -406,29 +406,36 @@
                                 </div>
                                 <div class="flex flex-wrap gap-1">
                                     <span
-                                        class="bg-zinc-800 text-zinc-100 px-1.5 py-0.5 rounded font-mono text-[9px]">剪映专业版</span>
-
+                                        class="bg-zinc-800 text-zinc-100 px-1.5 py-0.5 rounded font-mono text-[9px]">PR</span>
+                                    <span
+                                        class="bg-zinc-800 text-zinc-100 px-1.5 py-0.5 rounded font-mono text-[9px]">Feeds
+                                        FX</span>
+                                    <span
+                                        class="bg-zinc-800 text-zinc-100 px-1.5 py-0.5 rounded font-mono text-[9px]">Motion
+                                        UI</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
     <section id="pinpaixuanchuan" class="py-6 px-6 md:px-20 relative mb-16">
         <div class="max-w-7xl mx-auto">
             <div class="bg-white/80 backdrop-blur-xl border border-zinc-200 rounded-[2rem] p-8 md:p-8 shadow-xl">
                 <h3 class="text-3xl font-bold mb-8 flex items-center text-zinc-900">
-                    <span class="w-2 h-8 bg-blue-500 mr-4"></span> 品牌宣传
+                    <span class="w-2 h-8 bg-blue-500 mr-4"></span>
+                    品牌宣传
                 </h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
 
                     <div
-                        class="video-card group cursor-pointer flex flex-col h-full relative rounded-2xl transition-all duration-300">
-                        <div onclick="openVideo('BV1CrcKzkEsk'); event.stopPropagation();"
-                            class="relative aspect-video rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200">
+                        class="video-card group cursor-pointer flex flex-col h-full bg-white rounded-2xl transition-all duration-300">
+                        <div onclick="openVideo('BV1CrcKzkEsk')"
+                            class="relative aspect-video rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200 shadow-sm">
                             <img src="weixing.jpg"
                                 class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out">
                             <div
@@ -436,7 +443,7 @@
                                 <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
                             </div>
                         </div>
-                        <h4 onclick="openVideo('BV1CrcKzkEsk'); event.stopPropagation();"
+                        <h4 onclick="openVideo('BV1CrcKzkEsk')"
                             class="text-lg font-bold text-zinc-800 tracking-wide group-hover:text-blue-600 transition-colors line-clamp-1">
                             伟星·玖玺台 · 线下新品发布快剪
                         </h4>
@@ -445,30 +452,21 @@
                                 class="bg-zinc-100 text-zinc-600 text-[10px] px-2 py-0.5 rounded font-medium">商业快剪</span>
                             <span
                                 class="bg-zinc-100 text-zinc-600 text-[10px] px-2 py-0.5 rounded font-medium">地产活动</span>
-                            <span
-                                class="bg-zinc-100 text-zinc-600 text-[10px] px-2 py-0.5 rounded font-medium">视觉卡点</span>
                         </div>
-                        <div class="border-t border-zinc-100 pt-2.5 mt-auto relative">
-                            <button onclick="toggleIntro(this); event.stopPropagation();"
-                                class="inline-flex items-center gap-1.5 text-zinc-500 hover:text-blue-600 text-xs font-medium py-1 focus:outline-none transition-colors">
-                                <span>项目介绍</span>
-                                <i class="fas fa-chevron-down text-[10px] transition-transform duration-300"></i>
+
+                        <div class="border-t border-zinc-100 pt-2.5 mt-auto flex justify-between items-center">
+                            <button onclick="openDetailModal('detail-weixing')"
+                                class="inline-flex items-center gap-1.5 text-zinc-500 hover:text-blue-600 text-xs font-semibold py-1 px-3 bg-zinc-50 hover:bg-blue-50 border border-zinc-200/60 rounded-lg transition-all">
+                                <i class="fas fa-file-alt text-zinc-400"></i>
+                                <span>项目介绍 </span>
                             </button>
-                            <div class="intro-content h-0 overflow-hidden transition-[height] duration-300 ease-in-out relative md:absolute left-0 right-0 bg-zinc-900 border border-zinc-800 rounded-xl px-4 pb-3 z-30 antialiased shadow-xl"
-                                style="top: 102%;">
-                                <p
-                                    class="text-zinc-100 text-xs leading-relaxed text-justify pt-3 tracking-wide font-normal">
-                                    本片为高端地产线下快闪活动的宣发快剪。全片采用重低音鼓点强卡点节奏，通过多重无缝转场（遮挡转场、动作匹配）与快慢速（Speed
-                                    Ramp）组合，将时尚模特、高定礼服与项目展台完美解构重组。在 15 秒内高频次输出视觉核心，精准传达项目高端、优雅的品牌调性。
-                                </p>
-                            </div>
                         </div>
                     </div>
 
                     <div
-                        class="video-card group cursor-pointer flex flex-col h-full relative rounded-2xl transition-all duration-300">
-                        <div onclick="openVideo('BV1uzcgzhE5R'); event.stopPropagation();"
-                            class="relative aspect-video rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200">
+                        class="video-card group cursor-pointer flex flex-col h-full bg-white rounded-2xl transition-all duration-300">
+                        <div onclick="openVideo('BV1uzcgzhE5R')"
+                            class="relative aspect-video rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200 shadow-sm">
                             <img src="suxiaoniu.jpg"
                                 class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out">
                             <div
@@ -476,7 +474,7 @@
                                 <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
                             </div>
                         </div>
-                        <h4 onclick="openVideo('BV1uzcgzhE5R'); event.stopPropagation();"
+                        <h4 onclick="openVideo('BV1uzcgzhE5R')"
                             class="text-lg font-bold text-zinc-800 tracking-wide group-hover:text-blue-600 transition-colors line-clamp-1">
                             苏小牛 · 潮流牛肉串 brand 宣传
                         </h4>
@@ -485,29 +483,21 @@
                                 class="bg-zinc-100 text-zinc-600 text-[10px] px-2 py-0.5 rounded font-medium">品牌宣传</span>
                             <span
                                 class="bg-zinc-100 text-zinc-600 text-[10px] px-2 py-0.5 rounded font-medium">线下探店</span>
-                            <span
-                                class="bg-zinc-100 text-zinc-600 text-[10px] px-2 py-0.5 rounded font-medium">美食视觉卡点</span>
                         </div>
-                        <div class="border-t border-zinc-100 pt-2.5 mt-auto relative">
-                            <button onclick="toggleIntro(this); event.stopPropagation();"
-                                class="inline-flex items-center gap-1.5 text-zinc-500 hover:text-blue-600 text-xs font-medium py-1 focus:outline-none transition-colors">
-                                <span>项目介绍</span>
-                                <i class="fas fa-chevron-down text-[10px] transition-transform duration-300"></i>
+
+                        <div class="border-t border-zinc-100 pt-2.5 mt-auto flex justify-between items-center">
+                            <button onclick="openDetailModal('detail-suxiaoniu')"
+                                class="inline-flex items-center gap-1.5 text-zinc-500 hover:text-blue-600 text-xs font-semibold py-1 px-3 bg-zinc-50 hover:bg-blue-50 border border-zinc-200/60 rounded-lg transition-all">
+                                <i class="fas fa-file-alt text-zinc-400"></i>
+                                <span>项目介绍 </span>
                             </button>
-                            <div class="intro-content h-0 overflow-hidden transition-[height] duration-300 ease-in-out relative md:absolute left-0 right-0 bg-zinc-900 border border-zinc-800 rounded-xl px-4 pb-3 z-30 antialiased shadow-xl"
-                                style="top: 102%;">
-                                <p
-                                    class="text-zinc-100 text-xs leading-relaxed text-justify pt-3 tracking-wide font-normal">
-                                    本片是一支针对潮流餐饮品牌的线下空间与美食视觉宣传片。全片摒弃了传统走马观花式的探店逻辑，将视觉核心聚焦于“年轻化的空间美学”与“极致的美食特写”。运用舒适的音效铺垫与动感卡点，将精酿啤酒的呼吸感、烤肉油脂的跳动模拟以及大口吃肉的满足感层层递进，既有探店的氛围，又有品牌广告的精致质感。
-                                </p>
-                            </div>
                         </div>
                     </div>
 
                     <div
-                        class="video-card group cursor-pointer flex flex-col h-full relative rounded-2xl transition-all duration-300">
-                        <div onclick="openVideo('BV1SBcgzcEar'); event.stopPropagation();"
-                            class="relative aspect-video rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200">
+                        class="video-card group cursor-pointer flex flex-col h-full bg-white rounded-2xl transition-all duration-300">
+                        <div onclick="openVideo('BV1SBcgzcEar')"
+                            class="relative aspect-video rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200 shadow-sm">
                             <img src="aiqinhai.jpg"
                                 class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out">
                             <div
@@ -515,7 +505,7 @@
                                 <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
                             </div>
                         </div>
-                        <h4 onclick="openVideo('BV1SBcgzcEar'); event.stopPropagation();"
+                        <h4 onclick="openVideo('BV1SBcgzcEar')"
                             class="text-lg font-bold text-zinc-800 tracking-wide group-hover:text-blue-600 transition-colors line-clamp-1">
                             发布会暨样板房品宣片
                         </h4>
@@ -524,26 +514,76 @@
                                 class="bg-zinc-100 text-zinc-600 text-[10px] px-2 py-0.5 rounded font-medium">商业宣传片</span>
                             <span
                                 class="bg-zinc-100 text-zinc-600 text-[10px] px-2 py-0.5 rounded font-medium">地产大片</span>
-                            <span
-                                class="bg-zinc-100 text-zinc-600 text-[10px] px-2 py-0.5 rounded font-medium">空间与活动叙事</span>
                         </div>
-                        <div class="border-t border-zinc-100 pt-2.5 mt-auto relative">
-                            <button onclick="toggleIntro(this); event.stopPropagation();"
-                                class="inline-flex items-center gap-1.5 text-zinc-500 hover:text-blue-600 text-xs font-medium py-1 focus:outline-none transition-colors">
-                                <span>项目介绍</span>
-                                <i class="fas fa-chevron-down text-[10px] transition-transform duration-300"></i>
+
+                        <div class="border-t border-zinc-100 pt-2.5 mt-auto flex justify-between items-center">
+                            <button onclick="openDetailModal('detail-yangbanfang')"
+                                class="inline-flex items-center gap-1.5 text-zinc-500 hover:text-blue-600 text-xs font-semibold py-1 px-3 bg-zinc-50 hover:bg-blue-50 border border-zinc-200/60 rounded-lg transition-all">
+                                <i class="fas fa-file-alt text-zinc-400"></i>
+                                <span>项目介绍 </span>
                             </button>
-                            <div class="intro-content h-0 overflow-hidden transition-[height] duration-300 ease-in-out relative md:absolute left-0 right-0 bg-zinc-900 border border-zinc-800 rounded-xl px-4 pb-3 z-30 antialiased shadow-xl"
-                                style="top: 102%;">
-                                <p
-                                    class="text-zinc-100 text-xs leading-relaxed text-justify pt-3 tracking-wide font-normal">
-                                    本片为知名房企高端住宅项目的线下发布会与精装样板房品宣成片。全片采用电影级双线叙事结构，将“高定模特秀场的艺术美学”与“样板房空间的轻奢质感”完美交织。后期运用重音卡点强化转场，通过对现场人气、沙盘讲解及室内轻奢单品的微距捕捉，层层递进烘托项目的高端调性，是一支兼具艺术审美与商业销售转化的高规格宣传片。
-                                </p>
-                            </div>
                         </div>
                     </div>
 
                 </div>
+            </div>
+        </div>
+
+        <div id="detail-weixing"
+            class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100] hidden w-[calc(100%-2rem)] max-w-md p-6 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl animate-fade-in">
+            <div class="flex justify-between items-center border-b border-zinc-800 pb-3 mb-4">
+                <h5 class="text-white text-sm font-bold flex items-center gap-1.5">
+                    <span class="w-1.5 h-3 bg-blue-500 rounded-sm"></span>
+                    伟星·玖玺台
+                </h5>
+                <button onclick="closeDetailModal('detail-weixing')"
+                    class="text-zinc-400 hover:text-white text-sm p-1"><i class="fas fa-times"></i></button>
+            </div>
+            <p class="text-zinc-300 text-xs leading-relaxed text-justify tracking-wide">
+                本片为高端地产线下快闪活动的宣发快剪。全片采用重低音鼓点强卡点节奏，通过多重无缝转场（遮挡转场、动作匹配）与快慢速（Speed Ramp）组合，将时尚模特、高定礼服与项目展台完美解构重组。在 15
+                秒内高频次输出视觉核心，精准传达项目高端、优雅的品牌调性。
+            </p>
+            <div class="mt-5 pt-3 border-t border-zinc-800/60 text-right">
+                <button onclick="closeDetailModal('detail-weixing')"
+                    class="bg-zinc-800 text-zinc-200 hover:bg-zinc-700 text-[11px] px-4 py-1.5 rounded-lg transition-colors">我知道了</button>
+            </div>
+        </div>
+
+        <div id="detail-suxiaoniu"
+            class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100] hidden w-[calc(100%-2rem)] max-w-md p-6 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl animate-fade-in">
+            <div class="flex justify-between items-center border-b border-zinc-800 pb-3 mb-4">
+                <h5 class="text-white text-sm font-bold flex items-center gap-1.5">
+                    <span class="w-1.5 h-3 bg-blue-500 rounded-sm"></span>
+                    苏小牛
+                </h5>
+                <button onclick="closeDetailModal('detail-suxiaoniu')"
+                    class="text-zinc-400 hover:text-white text-sm p-1"><i class="fas fa-times"></i></button>
+            </div>
+            <p class="text-zinc-300 text-xs leading-relaxed text-justify tracking-wide">
+                本片是一支针对潮流餐饮品牌的线下空间与美食视觉宣传片。全片摒弃了传统走马观花式的探店逻辑，将视觉核心聚焦于“年轻化的空间美学”与“极致的美食特写”。运用舒适的音效铺垫与动感卡点，将精酿啤酒的呼吸感、烤肉油脂的跳动模拟以及大口吃肉的满足感层层递进，既有探店的氛围，又有品牌广告的精致质感。
+            </p>
+            <div class="mt-5 pt-3 border-t border-zinc-800/60 text-right">
+                <button onclick="closeDetailModal('detail-suxiaoniu')"
+                    class="bg-zinc-800 text-zinc-200 hover:bg-zinc-700 text-[11px] px-4 py-1.5 rounded-lg transition-colors">我知道了</button>
+            </div>
+        </div>
+
+        <div id="detail-yangbanfang"
+            class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100] hidden w-[calc(100%-2rem)] max-w-md p-6 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl animate-fade-in">
+            <div class="flex justify-between items-center border-b border-zinc-800 pb-3 mb-4">
+                <h5 class="text-white text-sm font-bold flex items-center gap-1.5">
+                    <span class="w-1.5 h-3 bg-blue-500 rounded-sm"></span>
+                    样板房品宣
+                </h5>
+                <button onclick="closeDetailModal('detail-yangbanfang')"
+                    class="text-zinc-400 hover:text-white text-sm p-1"><i class="fas fa-times"></i></button>
+            </div>
+            <p class="text-zinc-300 text-xs leading-relaxed text-justify tracking-wide">
+                本片为知名房企高端住宅项目的线下发布会与精装样板房品宣成片。全片采用电影级双线叙事结构，将“高定模特秀场的艺术美学”与“样板房空间的轻奢质感”完美交织。后期运用重音卡点强化转场，通过对现场人气、沙盘讲解及室内轻奢单品的微距捕捉，层层递进烘托项目的高端调性，是一支兼具艺术审美与商业销售转化的高规格宣传片。
+            </p>
+            <div class="mt-5 pt-3 border-t border-zinc-800/60 text-right">
+                <button onclick="closeDetailModal('detail-yangbanfang')"
+                    class="bg-zinc-800 text-zinc-200 hover:bg-zinc-700 text-[11px] px-4 py-1.5 rounded-lg transition-colors">我知道了</button>
             </div>
         </div>
     </section>
@@ -577,6 +617,8 @@
     <script>
         const modal = document.getElementById('videoModal');
         const player = document.getElementById('player');
+
+        // 1. 控制大弹窗视频打开
         function openVideo(bvid) {
             if (!bvid) return;
             const url = `https://player.bilibili.com/player.html?bvid=${bvid}&page=1&high_quality=1&autoplay=1&danmaku=0&as_wide=1`;
@@ -584,11 +626,15 @@
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
+
+        // 2. 控制大弹窗视频关闭
         function closeVideo() {
             modal.style.display = 'none';
             player.src = '';
             document.body.style.overflow = 'auto';
         }
+
+        // 3. 控制网页上其他类目老版本的下拉介绍（保留兼容）
         function toggleIntro(button) {
             const content = button.nextElementSibling;
             const icon = button.querySelector('i');
@@ -600,8 +646,28 @@
                 icon.style.transform = 'rotate(180deg)';
             }
         }
+
+        // 4. 【完美独立弹窗】控制品牌宣传的独立复盘本打开
+        function openDetailModal(id) {
+            const target = document.getElementById(id);
+            if (target) {
+                target.style.display = 'block'; // 直接纯净显示内容框
+            }
+        }
+
+        // 5. 【完美独立弹窗】控制品牌宣传的独立复盘本关闭
+        function closeDetailModal(id) {
+            const target = document.getElementById(id);
+            if (target) {
+                target.style.display = 'none'; // 关闭内容框
+            }
+        }
+
+        // 键盘 Esc 键关闭视频弹窗
         document.onkeydown = function (e) {
-            if (e.key === "Escape") closeVideo();
+            if (e.key === 'Escape') {
+                closeVideo();
+            }
         };
     </script>
 </body>
