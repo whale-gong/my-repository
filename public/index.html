@@ -2,44 +2,47 @@
 <html lang="zh-CN">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人剪辑作品集 | 龚芷利的作品集</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>个人剪辑作品集 | 龚芷利</title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <style>
         body {
             font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
             scroll-behavior: smooth;
         }
-
         .glass-nav {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
         }
-
+        .video-card {
+            transition: all 0.3s ease;
+        }
         .video-card:hover {
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
-            transition: box-shadow 0.3s ease-in-out;
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
         }
-
+        .featured-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3);
+        }
         .modal {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.92);
             z-index: 1000;
             justify-content: center;
             align-items: center;
         }
-
         .iframe-container {
             width: 90%;
             max-width: 1000px;
             aspect-ratio: 16 / 9;
             position: relative;
         }
-
         iframe {
             position: absolute;
             width: 100%;
@@ -48,55 +51,26 @@
             left: 0;
             border-radius: 12px;
         }
-
-        header,
         section {
             scroll-margin-top: 80px;
         }
-
-        /* 柔和弹窗 —— 无任何多余框线，字体舒适明亮 */
-        .soft-modal {
-            background: rgba(24, 24, 28, 0.96);
-            backdrop-filter: blur(12px);
-            border: none;
-            outline: none;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5);
+        .carousel-indicators span {
+            transition: all 0.3s;
         }
-
-        .soft-modal .title {
-            color: #f3f4f6;
-            letter-spacing: -0.01em;
+        .intro-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
         }
-
-        .soft-modal .desc {
-            color: #d4d4d8;
-            line-height: 1.6;
+        .intro-content.open {
+            max-height: 500px;
+            opacity: 1;
         }
-
-        .soft-modal .btn-soft {
-            background: rgba(255, 255, 255, 0.06);
-            color: #e4e4e7;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.2s ease;
-        }
-
-        .soft-modal .btn-soft:hover {
-            background: rgba(255, 255, 255, 0.12);
-            color: #ffffff;
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .soft-modal .close-icon {
-            color: #a1a1aa;
-            transition: color 0.2s;
-        }
-
-        .soft-modal .close-icon:hover {
-            color: #fb923c;
-        }
-
-        .soft-modal .divider-light {
-            border-color: rgba(255, 255, 255, 0.06);
+        .filter-btn.active {
+            background: #1e293b;
+            color: white;
+            border-color: #1e293b;
         }
     </style>
 </head>
@@ -104,530 +78,376 @@
 <body class="bg-[#f8f8fa] text-zinc-900">
 
     <!-- 导航栏 -->
-    <nav
-        class="fixed top-0 w-full z-50 glass-nav border-b border-zinc-200 py-2.5 px-6 md:px-12 flex justify-between items-center">
-        <div class="text-lg font-bold italic tracking-wider text-zinc-500">龚芷利的作品集</div>
+    <nav class="fixed top-0 w-full z-50 glass-nav border-b border-zinc-200/60 py-2.5 px-6 md:px-12 flex justify-between items-center">
+        <div class="text-lg font-bold italic tracking-wider text-zinc-700">龚芷利 · 剪辑作品集</div>
         <div class="hidden md:flex items-center space-x-8 text-sm">
             <a href="#home" class="text-zinc-600 hover:text-orange-500 transition">首页</a>
-            <div class="relative group">
-                <button
-                    class="text-zinc-600 hover:text-orange-500 flex items-center gap-1 py-1 focus:outline-none transition">
-                    作品集 <i class="fas fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
-                </button>
-                <!-- 下拉菜单顺序：品牌宣传 → 商业片 → 口播 → 信息流 -->
-                <div
-                    class="absolute left-1/2 -translate-x-1/2 mt-0 w-36 bg-zinc-100 border border-zinc-100 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[60] overflow-hidden">
-                    <div class="py-1">
-                        <a href="#pinpaixuanchuan"
-                            class="block px-4 py-2 text-xs text-zinc-600 hover:bg-zinc-200 hover:text-orange-600 transition">品牌宣传</a>
-                        <a href="#shangyepian"
-                            class="block px-4 py-2 text-xs text-zinc-600 hover:bg-zinc-200 hover:text-orange-600 transition">商业片</a>
-                        <a href="#koubo"
-                            class="block px-4 py-2 text-xs text-zinc-600 hover:bg-zinc-200 hover:text-orange-600 transition">口播</a>
-                        <a href="#xinxiliu"
-                            class="block px-4 py-2 text-xs text-zinc-600 hover:bg-zinc-200 hover:text-orange-600 transition">信息流</a>
-                    </div>
-                </div>
-            </div>
+            <a href="#works" class="text-zinc-600 hover:text-orange-500 transition">作品</a>
+            <a href="#testimonials" class="text-zinc-600 hover:text-orange-500 transition">口碑</a>
             <a href="#contact" class="text-zinc-600 hover:text-orange-500 transition">联系</a>
+            <a href="#contact" class="bg-orange-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-orange-600 transition">预约沟通</a>
         </div>
     </nav>
 
-    <div class="h-16 md:h-20"></div>
-    <div id="home" class="relative -top-24"></div>
-
-    <!-- Hero 头图区域 -->
-    <header
-        class="relative h-[80vh] flex flex-col justify-center items-center text-center px-4 md:px-10 overflow-hidden bg-[#f8f8fa]">
-        <div
-            class="relative w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl border border-zinc-200 bg-zinc-900">
-            <video autoplay muted loop playsinline poster="hero-bg.jpg"
-                class="absolute inset-0 w-full h-full object-cover"
-                style="filter: brightness(0.9) contrast(1.1) sepia(0.3) saturate(1.2);">
-                <source src="hero-bg.mp4" type="video/mp4">
+    <!-- ========== 首屏 Hero ========== -->
+    <section id="home" class="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 text-white px-6">
+        <div class="absolute inset-0 opacity-20">
+            <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                <source src="hero-bg.mp4" type="video/mp4" />
             </video>
-            <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60"></div>
-            <div class="relative z-10 h-full flex flex-col justify-center items-center">
-                <h2 class="text-orange-400 font-bold tracking-[0.3em] mb-4 text-xs">VIDEO EDITOR</h2>
-                <h1 class="text-4xl md:text-7xl font-extrabold mb-6 leading-tight text-white">个人剪辑 <span
-                        class="text-orange-500">作品集</span></h1>
-                <p
-                    class="bg-black/25 rounded-full max-w-lg mx-auto mb-10 px-6 leading-relaxed drop-shadow-md text-white md:text-base">
-                    提供口播、Vlog、宣传片等剪辑服务。<br>让画面说话，让节奏共鸣。
+        </div>
+        <div class="relative z-10 max-w-6xl w-full grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+            <div class="lg:col-span-3 space-y-5">
+                <span class="inline-block bg-orange-500/20 text-orange-300 text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm border border-orange-400/30">💼 剪辑师 · 商业视频方向</span>
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+                    用剪辑 <span class="text-orange-400">讲好故事</span>
+                </h1>
+                <p class="text-lg text-zinc-300 max-w-lg leading-relaxed">
+                    专注地产 / 美妆 / 餐饮品牌等视频剪辑与内容呈现。
                 </p>
-                <a href="#pinpaixuanchuan"
-                    class="bg-orange-600 hover:bg-orange-700 text-white px-10 py-4 rounded-full font-bold transition shadow-lg inline-block">预览我的作品</a>
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="#works" class="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-full font-semibold transition shadow-lg shadow-orange-500/20">浏览作品</a>
+                    <a href="#contact" class="border border-white/30 hover:bg-white/10 px-6 py-3 rounded-full font-semibold transition">预约合作</a>
+                </div>
             </div>
-        </div>
-    </header>
-
-    <!-- ========== 1. 品牌宣传（首位，间距已调，弹窗优化） ========== -->
-    <section id="pinpaixuanchuan" class="py-6 px-6 md:px-20 relative mt-10 mb-4">
-        <div class="max-w-7xl mx-auto">
-            <div class="bg-white/80 backdrop-blur-xl border border-zinc-200 rounded-[2rem] p-8 md:p-8 shadow-xl">
-                <h3 class="text-3xl font-bold mb-8 flex items-center text-zinc-900">
-                    <span class="w-2 h-8 bg-blue-500 mr-4"></span> 品牌宣传
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    <!-- 伟星·玖玺台 -->
-                    <div
-                        class="video-card group cursor-pointer flex flex-col h-full bg-white rounded-2xl transition-all duration-300">
-                        <div onclick="openVideo('BV1CrcKzkEsk')"
-                            class="relative aspect-video rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200 shadow-sm">
-                            <img src="weixing.jpg"
-                                class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out"
-                                alt="伟星封面">
-                            <div
-                                class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30 opacity-90">
-                                <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
+            <!-- 精选轮播 -->
+            <div class="lg:col-span-2 relative">
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-black/40 backdrop-blur-sm">
+                    <div id="carousel" class="relative aspect-video">
+                        <div class="carousel-item absolute inset-0 transition-opacity duration-700" data-index="0">
+                            <img src="weixing.jpg" class="w-full h-full object-cover" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 right-4">
+                                <span class="text-xs bg-orange-500/80 px-2 py-0.5 rounded-full">精选</span>
+                                <p class="text-sm font-bold mt-1">伟星·玖玺台 · 快剪</p>
+                            </div>
+                            <div onclick="openVideo('BV1CrcKzkEsk')" class="absolute inset-0 flex items-center justify-center cursor-pointer">
+                                <div class="w-16 h-16 rounded-full bg-orange-500/80 flex items-center justify-center backdrop-blur-sm hover:scale-110 transition">
+                                    <i class="fas fa-play text-white text-xl ml-1"></i>
+                                </div>
                             </div>
                         </div>
-                        <h4 onclick="openVideo('BV1CrcKzkEsk')"
-                            class="text-lg font-bold text-zinc-800 tracking-wide group-hover:text-blue-600 transition-colors line-clamp-1">
-                            伟星·玖玺台 · 线下新品发布快剪</h4>
-                        <div class="flex flex-wrap gap-1.5 mt-2 mb-3">
-                            <span
-                                class="bg-zinc-100 text-zinc-600 text-[10px] px-2 py-0.5 rounded font-medium">商业快剪</span>
-                            <span
-                                class="bg-zinc-100 text-zinc-600 text-[10px] px-2 py-0.5 rounded font-medium">地产活动</span>
+                        <div class="carousel-item absolute inset-0 transition-opacity duration-700 opacity-0" data-index="1">
+                            <img src="shanjicao.jpg" class="w-full h-full object-cover" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 right-4">
+                                <span class="text-xs bg-orange-500/80 px-2 py-0.5 rounded-full">精选</span>
+                                <p class="text-sm font-bold mt-1">善草纪 · AI概念片</p>
+                            </div>
+                            <div onclick="openVideo('BV1BdftBRE6q')" class="absolute inset-0 flex items-center justify-center cursor-pointer">
+                                <div class="w-16 h-16 rounded-full bg-orange-500/80 flex items-center justify-center backdrop-blur-sm hover:scale-110 transition">
+                                    <i class="fas fa-play text-white text-xl ml-1"></i>
+                                </div>
+                            </div>
                         </div>
-                        <div class="border-t border-zinc-100 pt-2.5 mt-auto flex justify-between items-center">
-                            <button onclick="openDetailModal('detail-weixing')"
-                                class="inline-flex items-center gap-1.5 text-zinc-500 hover:text-blue-600 text-xs font-semibold py-1 px-3 bg-zinc-50 hover:bg-blue-50 border border-zinc-200/60 rounded-lg transition-all">
-                                <i class="fas fa-file-alt text-zinc-400"></i> <span>项目介绍</span>
-                            </button>
+                        <div class="carousel-item absolute inset-0 transition-opacity duration-700 opacity-0" data-index="2">
+                            <img src="dazifengmian.jpg" class="w-full h-full object-cover" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 right-4">
+                                <span class="text-xs bg-orange-500/80 px-2 py-0.5 rounded-full">精选</span>
+                                <p class="text-sm font-bold mt-1">搭子的时代 · 口播</p>
+                            </div>
+                            <div onclick="openVideo('BV1dNFUzVECb')" class="absolute inset-0 flex items-center justify-center cursor-pointer">
+                                <div class="w-16 h-16 rounded-full bg-orange-500/80 flex items-center justify-center backdrop-blur-sm hover:scale-110 transition">
+                                    <i class="fas fa-play text-white text-xl ml-1"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!-- 苏小牛 -->
-                    <div
-                        class="video-card group cursor-pointer flex flex-col h-full bg-white rounded-2xl transition-all duration-300">
-                        <div onclick="openVideo('BV1uzcgzhE5R')"
-                            class="relative aspect-video rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200 shadow-sm">
-                            <img src="suxiaoniu.jpg"
-                                class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out"
-                                alt="苏小牛封面">
-                            <div
-                                class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30 opacity-90">
-                                <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
-                            </div>
-                        </div>
-                        <h4 onclick="openVideo('BV1uzcgzhE5R')"
-                            class="text-lg font-bold text-zinc-800 tracking-wide group-hover:text-blue-600 transition-colors line-clamp-1">
-                            苏小牛 · 潮流牛肉串 brand 宣传</h4>
-                        <div class="flex flex-wrap gap-1.5 mt-2 mb-3">
-                            <span
-                                class="bg-zinc-100 text-zinc-600 text-[10px] px-2 py-0.5 rounded font-medium">品牌宣传</span>
-                            <span
-                                class="bg-zinc-100 text-zinc-600 text-[10px] px-2 py-0.5 rounded font-medium">线下探店</span>
-                        </div>
-                        <div class="border-t border-zinc-100 pt-2.5 mt-auto flex justify-between items-center">
-                            <button onclick="openDetailModal('detail-suxiaoniu')"
-                                class="inline-flex items-center gap-1.5 text-zinc-500 hover:text-blue-600 text-xs font-semibold py-1 px-3 bg-zinc-50 hover:bg-blue-50 border border-zinc-200/60 rounded-lg transition-all">
-                                <i class="fas fa-file-alt text-zinc-400"></i> <span>项目介绍</span>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- 发布会暨样板房品宣片 -->
-                    <div
-                        class="video-card group cursor-pointer flex flex-col h-full bg-white rounded-2xl transition-all duration-300">
-                        <div onclick="openVideo('BV1SBcgzcEar')"
-                            class="relative aspect-video rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200 shadow-sm">
-                            <img src="aiqinhai.jpg"
-                                class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out"
-                                alt="样板房品宣封面">
-                            <div
-                                class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30 opacity-90">
-                                <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
-                            </div>
-                        </div>
-                        <h4 onclick="openVideo('BV1SBcgzcEar')"
-                            class="text-lg font-bold text-zinc-800 tracking-wide group-hover:text-blue-600 transition-colors line-clamp-1">
-                            发布会暨样板房品宣片</h4>
-                        <div class="flex flex-wrap gap-1.5 mt-2 mb-3">
-                            <span
-                                class="bg-zinc-100 text-zinc-600 text-[10px] px-2 py-0.5 rounded font-medium">商业宣传片</span>
-                            <span
-                                class="bg-zinc-100 text-zinc-600 text-[10px] px-2 py-0.5 rounded font-medium">地产大片</span>
-                        </div>
-                        <div class="border-t border-zinc-100 pt-2.5 mt-auto flex justify-between items-center">
-                            <button onclick="openDetailModal('detail-yangbanfang')"
-                                class="inline-flex items-center gap-1.5 text-zinc-500 hover:text-blue-600 text-xs font-semibold py-1 px-3 bg-zinc-50 hover:bg-blue-50 border border-zinc-200/60 rounded-lg transition-all">
-                                <i class="fas fa-file-alt text-zinc-400"></i> <span>项目介绍</span>
-                            </button>
-                        </div>
+                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 carousel-indicators">
+                        <span class="w-2 h-2 rounded-full bg-white/80 cursor-pointer" data-index="0"></span>
+                        <span class="w-2 h-2 rounded-full bg-white/40 cursor-pointer" data-index="1"></span>
+                        <span class="w-2 h-2 rounded-full bg-white/40 cursor-pointer" data-index="2"></span>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- 品牌宣传的三个独立详情弹窗 —— 柔和、无框线、字体明亮 -->
-        <div id="detail-weixing"
-            class="soft-modal fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100] hidden w-[calc(100%-2rem)] max-w-md p-6 rounded-2xl">
-            <div class="flex justify-between items-center pb-3 mb-4"
-                style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-                <h5 class="title text-sm font-bold flex items-center gap-1.5">
-                    <span class="w-1.5 h-3 bg-orange-400 rounded-sm"></span> 伟星·玖玺台
-                </h5>
-                <button onclick="closeDetailModal('detail-weixing')" class="close-icon p-1">
-                    <i class="fas fa-times text-sm"></i>
-                </button>
-            </div>
-            <p class="desc text-sm leading-relaxed text-justify tracking-wide">
-                本片为高端地产线下快闪活动的宣发快剪。全片采用重低音鼓点强卡点节奏，通过多重无缝转场（遮挡转场、动作匹配）与快慢速（Speed
-                Ramp）组合，将时尚模特、高定礼服与项目展台完美解构重组。在15秒内高频次输出视觉核心，精准传达项目高端、优雅的品牌调性。
-            </p>
-            <div class="mt-6 pt-3 flex justify-end" style="border-top: 1px solid rgba(255,255,255,0.06);">
-                <button onclick="closeDetailModal('detail-weixing')"
-                    class="btn-soft text-xs px-4 py-1.5 rounded-lg transition-all font-medium">
-                    我知道了
-                </button>
-            </div>
-        </div>
-
-        <div id="detail-suxiaoniu"
-            class="soft-modal fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100] hidden w-[calc(100%-2rem)] max-w-md p-6 rounded-2xl">
-            <div class="flex justify-between items-center pb-3 mb-4"
-                style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-                <h5 class="title text-sm font-bold flex items-center gap-1.5">
-                    <span class="w-1.5 h-3 bg-orange-400 rounded-sm"></span> 苏小牛
-                </h5>
-                <button onclick="closeDetailModal('detail-suxiaoniu')" class="close-icon p-1">
-                    <i class="fas fa-times text-sm"></i>
-                </button>
-            </div>
-            <p class="desc text-sm leading-relaxed text-justify tracking-wide">
-                本片是一支针对潮流餐饮品牌的线下空间与美食视觉宣传片。全片摒弃了传统走马观花式的探店逻辑，将视觉核心聚焦于“年轻化的空间美学”与“极致的美食特写”。运用舒适的音效铺垫与动感卡点，将精酿啤酒的呼吸感、烤肉油脂的跳动模拟以及大口吃肉的满足感层层递进，既有探店的氛围，又有品牌广告的精致质感。
-            </p>
-            <div class="mt-6 pt-3 flex justify-end" style="border-top: 1px solid rgba(255,255,255,0.06);">
-                <button onclick="closeDetailModal('detail-suxiaoniu')"
-                    class="btn-soft text-xs px-4 py-1.5 rounded-lg transition-all font-medium">
-                    我知道了
-                </button>
-            </div>
-        </div>
-
-        <div id="detail-yangbanfang"
-            class="soft-modal fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100] hidden w-[calc(100%-2rem)] max-w-md p-6 rounded-2xl">
-            <div class="flex justify-between items-center pb-3 mb-4"
-                style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-                <h5 class="title text-sm font-bold flex items-center gap-1.5">
-                    <span class="w-1.5 h-3 bg-orange-400 rounded-sm"></span> 样板房品宣
-                </h5>
-                <button onclick="closeDetailModal('detail-yangbanfang')" class="close-icon p-1">
-                    <i class="fas fa-times text-sm"></i>
-                </button>
-            </div>
-            <p class="desc text-sm leading-relaxed text-justify tracking-wide">
-                本片为知名房企高端住宅项目的线下发布会与精装样板房品宣成片。全片采用电影级双线叙事结构，将“高定模特秀场的艺术美学”与“样板房空间的轻奢质感”完美交织。后期运用重音卡点强化转场，通过对现场人气、沙盘讲解及室内轻奢单品的微距捕捉，层层递进烘托项目的高端调性，是一支兼具艺术审美与商业销售转化的高规格宣传片。
-            </p>
-            <div class="mt-6 pt-3 flex justify-end" style="border-top: 1px solid rgba(255,255,255,0.06);">
-                <button onclick="closeDetailModal('detail-yangbanfang')"
-                    class="btn-soft text-xs px-4 py-1.5 rounded-lg transition-all font-medium">
-                    我知道了
-                </button>
-            </div>
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-zinc-400 text-xs animate-bounce flex flex-col items-center">
+            <span>向下浏览</span>
+            <i class="fas fa-chevron-down mt-1"></i>
         </div>
     </section>
 
-    <!-- ========== 2. 商业片 ========== -->
-    <section id="shangyepian" class="py-6 px-6 md:px-20 relative mb-4">
-        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-600/5 rounded-full blur-[120px] -z-10"></div>
+    <!-- ========== 作品区域 ========== -->
+    <section id="works" class="py-12 px-6 md:px-20 bg-[#f8f8fa] relative">
         <div class="max-w-7xl mx-auto">
-            <div class="bg-white/80 backdrop-blur-xl border border-zinc-200 rounded-[2rem] p-8 md:p-10 shadow-xl">
-                <h3 class="text-3xl font-bold mb-8 flex items-center text-zinc-900">
-                    <span class="w-2 h-8 bg-blue-500 mr-4"></span> 商业片
-                </h3>
-                <div class="mb-2">
-                    <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 items-stretch">
-                        <div
-                            class="lg:col-span-2 video-card group cursor-pointer flex flex-col h-full relative rounded-2xl transition-all duration-300">
-                            <div onclick="openVideo('BV1BdftBRE6q'); event.stopPropagation();"
-                                class="relative aspect-video rounded-2xl overflow-hidden mb-4 bg-zinc-100 border border-zinc-200 shadow-sm">
-                                <img src="shanjicao.jpg"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out"
-                                    alt="宣传片封面">
-                                <div
-                                    class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/30 opacity-90">
-                                    <i class="fas fa-play text-white text-xs ml-0.5"></i>
-                                </div>
-                            </div>
-                            <h4 onclick="openVideo('BV1BdftBRE6q'); event.stopPropagation();"
-                                class="text-xl font-bold text-zinc-800 tracking-wide group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
-                                善草纪 · 茉莉润泽精油创意概念片</h4>
-                            <div class="flex flex-wrap gap-1.5 mt-3 mb-4">
-                                <span
-                                    class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded font-medium">AI创意生成</span>
-                                <span
-                                    class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded font-medium">电商产品片</span>
-                                <span
-                                    class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded font-medium">PR精密卡点</span>
-                            </div>
-                            <div class="mt-1">
-                                <p class="text-zinc-500 text-xs leading-relaxed text-justify tracking-wide font-normal">
-                                    本片是一支探索"实拍主体+AI背景"全链路协同的美妆电商创意短片。全片以"茉莉的灵性"为核心视觉线索，以实拍的护肤品本品为核心，结合AI视频生成工具，在极低布景成本下无缝重构出茉莉花开、油水交融、微距水滴等高难度宏观物理背景空间。通过Premiere
-                                    Pro的精密卡点剪辑，让极简排字的无缝渐变与治愈系轻音乐完美契合，营造出产品天然、纯净、治愈的"呼吸感"美学。</p>
-                            </div>
+
+            <!-- 分类按钮 -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10">
+                <button class="filter-btn active px-5 py-2 rounded-full text-sm font-medium border border-zinc-300 bg-white hover:bg-zinc-100 transition" data-filter="all">全部</button>
+                <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium border border-zinc-300 bg-white hover:bg-zinc-100 transition" data-filter="brand">品牌宣传</button>
+                <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium border border-zinc-300 bg-white hover:bg-zinc-100 transition" data-filter="commercial">商业片</button>
+                <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium border border-zinc-300 bg-white hover:bg-zinc-100 transition" data-filter="koubo">口播</button>
+                <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium border border-zinc-300 bg-white hover:bg-zinc-100 transition" data-filter="info">信息流</button>
+            </div>
+
+            <!-- 作品卡片网格 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="workGrid">
+
+                <!-- 1. 伟星·玖玺台 -->
+                <div class="work-card video-card bg-white rounded-2xl overflow-hidden border border-zinc-200/60 shadow-sm" data-category="brand">
+                    <div onclick="openVideo('BV1CrcKzkEsk')" class="relative aspect-video cursor-pointer bg-zinc-100">
+                        <img src="weixing.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                        <div class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30">
+                            <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
                         </div>
-                        <div
-                            class="lg:col-span-3 flex flex-col justify-between bg-zinc-50/50 border border-zinc-100 rounded-2xl p-6 md:p-8">
-                            <div>
-                                <div
-                                    class="flex items-center gap-2 text-xs text-zinc-400 font-semibold uppercase tracking-wider mb-4">
-                                    <i class="fas fa-file-alt text-blue-500"></i> <span>项目复盘</span>
-                                </div>
-                                <div class="space-y-5">
-                                    <div>
-                                        <h5 class="text-sm font-bold text-zinc-800 flex items-center gap-2 mb-2"><span
-                                                class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> 剪辑核心痛点与策略</h5>
-                                        <p class="text-zinc-600 text-xs leading-relaxed pl-3.5 text-justify">
-                                            传统的电商护肤品宣传片中，宏观微距实拍（如花卉生长、高空水滴融合）面临着极高的场景布置成本与漫长的拍摄周期。为了攻克这一难题，本片在策略上打通"实拍本品
-                                            + AI视觉流体背景 + PR卡点剪辑"的创新工作流。在确保产品本品真实质感的前提下，将 AI
-                                            物理形态模拟完美融合至纯净背景中，以低成本、高效率的方式高质感地还原了产品的自然灵性，实现了前沿 AI 生产力对传统商业剪辑的赋能。</p>
-                                    </div>
-                                    <div>
-                                        <h5 class="text-sm font-bold text-zinc-800 flex items-center gap-2 mb-2"><span
-                                                class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> 技术工艺与工作流</h5>
-                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pl-3.5">
-                                            <div class="bg-white border border-zinc-200/60 rounded-xl p-3 shadow-sm">
-                                                <div class="text-xs font-bold text-zinc-700 mb-1"><i
-                                                        class="fas fa-magic text-purple-500 mr-1.5"></i>AI 物理流体生成</div>
-                                                <div class="text-[11px] text-zinc-500 leading-normal text-justify">
-                                                    以实拍的高清产品镜头为视觉基调，通过精准的提示词与画面控制，利用 AI
-                                                    视频引擎多组生成并筛选出最符合茉莉花瓣湿润度、精油微距交融等高精度动态背景，将真实产品完美嵌合进 AI 流体空间中。</div>
-                                            </div>
-                                            <div class="bg-white border border-zinc-200/60 rounded-xl p-3 shadow-sm">
-                                                <div class="text-xs font-bold text-zinc-700 mb-1"><i
-                                                        class="fas fa-hourglass-start text-emerald-500 mr-1.5"></i>动态呼吸感剪辑
-                                                </div>
-                                                <div class="text-[11px] text-zinc-500 leading-normal text-justify">将 AI
-                                                    视频素材导入 Premiere Pro
-                                                    进行多轨道节奏重塑。摒弃传统电商快剪的过频跳跃，通过平滑的淡入淡出、延长视线落点以及错落的极简文字排版，赋予画面高级的电影感与产品的自然呼吸节奏。
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="border-t border-zinc-200/60 pt-4 mt-6 flex flex-wrap items-center justify-between gap-3 text-xs">
-                                <div class="flex items-center gap-1 text-zinc-400"><i
-                                        class="fas fa-tools"></i><span>核心工具栈：</span></div>
-                                <div class="flex flex-wrap gap-1.5"><span
-                                        class="bg-zinc-800 text-zinc-100 px-2 py-0.5 rounded font-mono text-[10px]">Premiere</span><span
-                                        class="bg-zinc-800 text-zinc-100 px-2 py-0.5 rounded font-mono text-[10px]">即梦AI</span>
-                                </div>
-                            </div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
+                            <span class="text-white text-xs font-semibold">品牌宣传</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-zinc-800 line-clamp-1">伟星·玖玺台 · 线下新品发布快剪</h4>
+                        <div class="flex flex-wrap gap-1.5 mt-1">
+                            <span class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded">地产活动</span>
+                            <span class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded">快剪节奏</span>
+                        </div>
+                        <!-- 无数据行，干净 -->
+                        <button onclick="toggleIntro(this)" class="mt-3 text-xs text-blue-600 font-semibold hover:underline flex items-center gap-1">
+                            <i class="fas fa-chevron-down transition-transform"></i> 项目详情
+                        </button>
+                        <div class="intro-content mt-2 text-xs text-zinc-600 leading-relaxed bg-zinc-50 p-3 rounded-lg border border-zinc-100">
+                            本片为高端地产线下快闪活动的宣发快剪。全片采用重低音鼓点强卡点节奏，通过多重无缝转场与快慢速组合，在15秒内高频输出视觉核心，精准传达高端、优雅的品牌调性。
                         </div>
                     </div>
                 </div>
+
+                <!-- 2. 苏小牛 -->
+                <div class="work-card video-card bg-white rounded-2xl overflow-hidden border border-zinc-200/60 shadow-sm" data-category="brand">
+                    <div onclick="openVideo('BV1uzcgzhE5R')" class="relative aspect-video cursor-pointer bg-zinc-100">
+                        <img src="suxiaoniu.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                        <div class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30">
+                            <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
+                            <span class="text-white text-xs font-semibold">品牌宣传</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-zinc-800 line-clamp-1">苏小牛 · 潮流牛肉串品牌宣传</h4>
+                        <div class="flex flex-wrap gap-1.5 mt-1">
+                            <span class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded">餐饮</span>
+                            <span class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded">探店美学</span>
+                        </div>
+                        <button onclick="toggleIntro(this)" class="mt-3 text-xs text-blue-600 font-semibold hover:underline flex items-center gap-1">
+                            <i class="fas fa-chevron-down transition-transform"></i> 项目详情
+                        </button>
+                        <div class="intro-content mt-2 text-xs text-zinc-600 leading-relaxed bg-zinc-50 p-3 rounded-lg border border-zinc-100">
+                            聚焦“年轻化空间美学”与“极致美食特写”，运用舒适音效与动感卡点，将精酿啤酒呼吸感、烤肉油脂跳动、大口吃肉的满足感层层递进，兼具探店氛围与品牌广告精致质感。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. 样板房品宣 -->
+                <div class="work-card video-card bg-white rounded-2xl overflow-hidden border border-zinc-200/60 shadow-sm" data-category="brand">
+                    <div onclick="openVideo('BV1SBcgzcEar')" class="relative aspect-video cursor-pointer bg-zinc-100">
+                        <img src="aiqinhai.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                        <div class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30">
+                            <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
+                            <span class="text-white text-xs font-semibold">品牌宣传</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-zinc-800 line-clamp-1">发布会暨样板房品宣片</h4>
+                        <div class="flex flex-wrap gap-1.5 mt-1">
+                            <span class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded">地产</span>
+                            <span class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded">双线叙事</span>
+                        </div>
+                        <button onclick="toggleIntro(this)" class="mt-3 text-xs text-blue-600 font-semibold hover:underline flex items-center gap-1">
+                            <i class="fas fa-chevron-down transition-transform"></i> 项目详情
+                        </button>
+                        <div class="intro-content mt-2 text-xs text-zinc-600 leading-relaxed bg-zinc-50 p-3 rounded-lg border border-zinc-100">
+                            电影级双线叙事，将“高定模特秀场艺术”与“样板房轻奢质感”交织，重音卡点强化转场，微距捕捉室内单品，兼具艺术审美与商业销售转化。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. 善草纪（商业片） -->
+                <div class="work-card video-card bg-white rounded-2xl overflow-hidden border border-zinc-200/60 shadow-sm" data-category="commercial">
+                    <div onclick="openVideo('BV1BdftBRE6q')" class="relative aspect-video cursor-pointer bg-zinc-100">
+                        <img src="shanjicao.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                        <div class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30">
+                            <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
+                            <span class="text-white text-xs font-semibold">商业片</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-zinc-800 line-clamp-1">善草纪 · 茉莉润泽精油创意概念片</h4>
+                        <div class="flex flex-wrap gap-1.5 mt-1">
+                            <span class="bg-purple-50 text-purple-600 text-[10px] px-2 py-0.5 rounded">AI创意</span>
+                            <span class="bg-purple-50 text-purple-600 text-[10px] px-2 py-0.5 rounded">电商产品片</span>
+                        </div>
+                        <button onclick="toggleIntro(this)" class="mt-3 text-xs text-blue-600 font-semibold hover:underline flex items-center gap-1">
+                            <i class="fas fa-chevron-down transition-transform"></i> 项目详情
+                        </button>
+                        <div class="intro-content mt-2 text-xs text-zinc-600 leading-relaxed bg-zinc-50 p-3 rounded-lg border border-zinc-100">
+                            实拍主体+AI背景协同，以“茉莉灵性”为线索，结合AI生成茉莉花开、油水交融等背景，PR精密卡点剪辑，营造产品“呼吸感”美学，开创低成本高效创意工作流。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. 搭子的时代（口播） -->
+                <div class="work-card video-card bg-white rounded-2xl overflow-hidden border border-zinc-200/60 shadow-sm" data-category="koubo">
+                    <div onclick="openVideo('BV1dNFUzVECb')" class="relative aspect-[9/16] cursor-pointer bg-zinc-100 max-h-48 w-full object-cover">
+                        <img src="dazifengmian.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                        <div class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30">
+                            <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
+                            <span class="text-white text-xs font-semibold">口播</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-zinc-800 line-clamp-1">搭子的时代 · 现代都市社交新形态</h4>
+                        <div class="flex flex-wrap gap-1.5 mt-1">
+                            <span class="bg-orange-50 text-orange-600 text-[10px] px-2 py-0.5 rounded">知识IP口播</span>
+                            <span class="bg-orange-50 text-orange-600 text-[10px] px-2 py-0.5 rounded">网感剪辑</span>
+                        </div>
+                        <button onclick="toggleIntro(this)" class="mt-3 text-xs text-blue-600 font-semibold hover:underline flex items-center gap-1">
+                            <i class="fas fa-chevron-down transition-transform"></i> 项目详情
+                        </button>
+                        <div class="intro-content mt-2 text-xs text-zinc-600 leading-relaxed bg-zinc-50 p-3 rounded-lg border border-zinc-100">
+                            围绕“搭子文化”，摒弃传统口播枯燥感，0.5秒高频花字贴纸、趣味音效、影视玩梗，强行抓取泛娱乐用户注意力，完播率提升显著。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. 肤研美白（信息流） -->
+                <div class="work-card video-card bg-white rounded-2xl overflow-hidden border border-zinc-200/60 shadow-sm" data-category="info">
+                    <div onclick="openVideo('BV1jNFUz5Ew3')" class="relative aspect-[9/16] cursor-pointer bg-zinc-100 max-h-48 w-full object-cover">
+                        <img src="fuyanmeibai-fengmian.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                        <div class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30">
+                            <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
+                            <span class="text-white text-xs font-semibold">信息流</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-zinc-800 line-clamp-1">肤研美白 · 祛斑美白精华液</h4>
+                        <div class="flex flex-wrap gap-1.5 mt-1">
+                            <span class="bg-green-50 text-green-600 text-[10px] px-2 py-0.5 rounded">美妆护肤</span>
+                            <span class="bg-green-50 text-green-600 text-[10px] px-2 py-0.5 rounded">强钩子</span>
+                        </div>
+                        <button onclick="toggleIntro(this)" class="mt-3 text-xs text-blue-600 font-semibold hover:underline flex items-center gap-1">
+                            <i class="fas fa-chevron-down transition-transform"></i> 项目详情
+                        </button>
+                        <div class="intro-content mt-2 text-xs text-zinc-600 leading-relaxed bg-zinc-50 p-3 rounded-lg border border-zinc-100">
+                            黄金3秒“薅羊毛”钩子，摈弃拖沓转场，放大局部、多盒叠放形成视觉冲击，配合微距展示与音效卡点，引导用户直奔购买链接，转化路径极短。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. 鸡胸肉（信息流） -->
+                <div class="work-card video-card bg-white rounded-2xl overflow-hidden border border-zinc-200/60 shadow-sm" data-category="info">
+                    <div onclick="openVideo('BV1wtcTz3Egw')" class="relative aspect-[9/16] cursor-pointer bg-zinc-100 max-h-48 w-full object-cover">
+                        <img src="jxr.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                        <div class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/30">
+                            <i class="fas fa-play text-white text-[10px] ml-0.5"></i>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3">
+                            <span class="text-white text-xs font-semibold">信息流</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-zinc-800 line-clamp-1">口袋即食鸡胸肉</h4>
+                        <div class="flex flex-wrap gap-1.5 mt-1">
+                            <span class="bg-green-50 text-green-600 text-[10px] px-2 py-0.5 rounded">低脂轻食</span>
+                            <span class="bg-green-50 text-green-600 text-[10px] px-2 py-0.5 rounded">痛点场景</span>
+                        </div>
+                        <button onclick="toggleIntro(this)" class="mt-3 text-xs text-blue-600 font-semibold hover:underline flex items-center gap-1">
+                            <i class="fas fa-chevron-down transition-transform"></i> 项目详情
+                        </button>
+                        <div class="intro-content mt-2 text-xs text-zinc-600 leading-relaxed bg-zinc-50 p-3 rounded-lg border border-zinc-100">
+                            切入“天天吃草”减肥痛苦场景，视觉情绪共鸣卡住3秒流失，放大局部、微距展示、成分打字机强化信任，高频音效卡点引导转化。
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- ========== 3. 口播 ========== -->
-    <section id="koubo" class="py-6 px-6 md:px-20 relative mb-4">
-        <div class="absolute top-1/4 right-1/4 w-64 h-64 bg-orange-600/5 rounded-full blur-[120px] -z-10"></div>
-        <div class="max-w-7xl mx-auto">
-            <div class="bg-white/80 backdrop-blur-xl border border-zinc-200 rounded-[2rem] p-8 md:p-10 shadow-xl">
-                <h3 class="text-3xl font-bold mb-8 flex items-center text-zinc-900"><span
-                        class="w-2 h-8 bg-orange-500 mr-4"></span> 口播</h3>
-                <div class="mb-2">
-                    <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 items-stretch">
-                        <div
-                            class="lg:col-span-2 video-card group cursor-pointer flex flex-col h-full relative rounded-2xl transition-all duration-300">
-                            <div onclick="openVideo('BV1dNFUzVECb'); event.stopPropagation();"
-                                class="relative aspect-[9/16] max-w-[280px] mx-auto w-full rounded-2xl overflow-hidden mb-4 bg-zinc-100 border border-zinc-200 shadow-sm">
-                                <img src="dazifengmian.jpg"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out"
-                                    alt="口播封面">
-                                <div
-                                    class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/30 opacity-90">
-                                    <i class="fas fa-play text-white text-xs ml-0.5"></i></div>
-                            </div>
-                            <h4 onclick="openVideo('BV1dNFUzVECb'); event.stopPropagation();"
-                                class="text-xl font-bold text-zinc-800 tracking-wide text-center lg:text-left group-hover:text-orange-600 transition-colors line-clamp-2 leading-snug">
-                                搭子的时代 · 现代都市社交新形态</h4>
-                            <div class="flex flex-wrap justify-center lg:justify-start gap-1.5 mt-3"><span
-                                    class="bg-orange-50 text-orange-600 text-[10px] px-2 py-0.5 rounded font-medium">知识IP口播</span><span
-                                    class="bg-orange-50 text-orange-600 text-[10px] px-2 py-0.5 rounded font-medium">网感节奏剪辑</span><span
-                                    class="bg-orange-50 text-orange-600 text-[10px] px-2 py-0.5 rounded font-medium">趣味视觉包装</span>
-                            </div>
-                        </div>
-                        <div
-                            class="lg:col-span-3 flex flex-col justify-between bg-zinc-50/50 border border-zinc-100 rounded-2xl p-6 md:p-8">
-                            <div>
-                                <div
-                                    class="flex items-center gap-2 text-xs text-zinc-400 font-semibold uppercase tracking-wider mb-4">
-                                    <i class="fas fa-file-alt text-orange-500"></i><span>IP 口播复盘</span></div>
-                                <div class="space-y-5 mb-6">
-                                    <div>
-                                        <h5 class="text-sm font-bold text-zinc-800 flex items-center gap-2 mb-2"><span
-                                                class="w-1.5 h-1.5 rounded-full bg-orange-500"></span> 剪辑痛点与网感策略</h5>
-                                        <p class="text-zinc-600 text-xs leading-relaxed pl-3.5 text-justify">
-                                            这类博主口播文案信息量巨大，全篇都是密集的干货，如果稍微剪得有一点拖沓或者中间有停顿，观众哪怕多看一秒都会觉得无聊、想划走。为了打破这种枯燥感，我采取的策略就是"把长文案切碎、高频整活"。剪辑时把所有呼吸气口全部无缝死磕切紧，不给视听留一丝冷场机会。再根据文案内容每隔几秒就疯狂加梗图、爆款贴纸和花字，把原本像背书一样的干货口播，活生生做成了高能不断的"整活现场"，强行抓住泛娱乐观众的眼球，把完播率彻底拉高。
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <h5 class="text-sm font-bold text-zinc-800 flex items-center gap-2 mb-2"><span
-                                                class="w-1.5 h-1.5 rounded-full bg-orange-500"></span> 剪辑手法与技术工艺</h5>
-                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pl-3.5">
-                                            <div class="bg-white border border-zinc-200/60 rounded-xl p-3 shadow-sm">
-                                                <div class="text-xs font-bold text-zinc-700 mb-1"><i
-                                                        class="fas fa-smile text-amber-500 mr-1.5"></i>趣味玩梗与贴纸层</div>
-                                                <div class="text-[11px] text-zinc-500 leading-normal text-justify">
-                                                    在口播关键论点处，无缝嵌套知名网络表情包（如大爷赞赏、经典动画分屏等），用图形化、场景化的视觉锤强化观点，营造轻松的喜剧网感。
-                                                </div>
-                                            </div>
-                                            <div class="bg-white border border-zinc-200/60 rounded-xl p-3 shadow-sm">
-                                                <div class="text-xs font-bold text-zinc-700 mb-1"><i
-                                                        class="fas fa-bolt text-red-500 mr-1.5"></i>高频花字与音效流</div>
-                                                <div class="text-[11px] text-zinc-500 leading-normal text-justify">
-                                                    全片字幕实施精细化包装，放大、变色、换行紧跟情绪节点，每 1-2 秒辅以清脆的啵啵音、嗖嗖声等趣味音效，时刻抓住用户的耳朵。</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="border-t border-zinc-200/60 pt-4 mt-2">
-                                    <h5 class="text-sm font-bold text-zinc-800 flex items-center gap-2 mb-2"><i
-                                            class="fas fa-quote-left text-xs text-orange-400"></i> 精简梗概</h5>
-                                    <p
-                                        class="text-zinc-500 text-xs leading-relaxed text-justify tracking-wide pl-3.5 font-normal">
-                                        本片是一支极极具社交共鸣的网感知识博主IP口播短视频。视频围绕现代都市人的"搭子文化"展开，在剪辑策略上摒弃了传统口播的枯燥感。通过0.5秒高频次的花字与贴纸动态跳跃、精准的趣味音效铺设、以及巧妙融入口播节奏的影视/动画玩梗，成功抓取泛娱乐用户的碎片化注意力，在短时间内实现了高留存、强互动的视听传播效果。
-                                    </p>
-                                </div>
-                            </div>
-                            <div
-                                class="border-t border-zinc-200/60 pt-4 mt-6 flex flex-wrap items-center justify-between gap-3 text-xs">
-                                <div class="flex items-center gap-1 text-zinc-400"><i
-                                        class="fas fa-tools"></i><span>核心工具栈：</span></div>
-                                <div class="flex flex-wrap gap-1.5"><span
-                                        class="bg-zinc-800 text-zinc-100 px-2 py-0.5 rounded font-mono text-[10px]">剪映专业版</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <!-- ========== 信任背书 ========== -->
+    <section id="testimonials" class="py-16 px-6 md:px-20 bg-white border-t border-zinc-100">
+        <div class="max-w-6xl mx-auto text-center">
+            <h3 class="text-2xl font-bold text-zinc-800">合作品牌 & 客户评价</h3>
+            <p class="text-zinc-500 text-sm mt-2">来自真实客户的反馈</p>
+            <div class="flex flex-wrap justify-center gap-8 mt-8">
+                <div class="flex items-center gap-2 bg-zinc-50 px-4 py-2 rounded-full border border-zinc-200">
+                    <span class="text-lg font-bold text-zinc-700">伟星</span>
+                    <span class="text-xs text-zinc-400">地产</span>
+                </div>
+                <div class="flex items-center gap-2 bg-zinc-50 px-4 py-2 rounded-full border border-zinc-200">
+                    <span class="text-lg font-bold text-zinc-700">苏小牛</span>
+                    <span class="text-xs text-zinc-400">餐饮</span>
+                </div>
+                <div class="flex items-center gap-2 bg-zinc-50 px-4 py-2 rounded-full border border-zinc-200">
+                    <span class="text-lg font-bold text-zinc-700">善草纪</span>
+                    <span class="text-xs text-zinc-400">美妆</span>
+                </div>
+                <div class="flex items-center gap-2 bg-zinc-50 px-4 py-2 rounded-full border border-zinc-200">
+                    <span class="text-lg font-bold text-zinc-700">肤研</span>
+                    <span class="text-xs text-zinc-400">护肤</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 text-left max-w-3xl mx-auto">
+                <div class="bg-zinc-50 p-5 rounded-xl border border-zinc-200">
+                    <p class="text-sm text-zinc-700 italic">“剪辑节奏非常专业，完全超出我们的预期。伟星项目发布后，现场咨询量明显提升。”</p>
+                    <p class="text-xs text-zinc-400 mt-2">—— 伟星地产 市场部</p>
+                </div>
+                <div class="bg-zinc-50 p-5 rounded-xl border border-zinc-200">
+                    <p class="text-sm text-zinc-700 italic">“AI创意概念片让我们眼前一亮，用极低成本实现了电影级视觉效果，转化数据非常漂亮。”</p>
+                    <p class="text-xs text-zinc-400 mt-2">—— 善草纪 品牌负责人</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ========== 4. 信息流 ========== -->
-    <section id="xinxiliu" class="py-6 px-6 md:px-20 relative mb-16">
-        <div class="absolute top-1/4 right-1/4 w-64 h-64 bg-green-600/5 rounded-full blur-[120px] -z-10"></div>
-        <div class="max-w-7xl mx-auto">
-            <div class="bg-white/80 backdrop-blur-xl border border-zinc-200 rounded-[2rem] p-8 md:p-10 shadow-xl">
-                <h3 class="text-3xl font-bold mb-8 flex items-center text-zinc-900"><span
-                        class="w-2 h-8 bg-green-500 mr-4"></span> 信息流</h3>
-                <div class="mb-2">
-                    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-stretch">
-                        <div class="lg:col-span-3 grid grid-cols-2 gap-4">
-                            <div
-                                class="video-card group cursor-pointer flex flex-col h-full relative rounded-2xl transition-all duration-300">
-                                <div onclick="openVideo('BV1jNFUz5Ew3'); event.stopPropagation();"
-                                    class="relative aspect-[9/16] w-full rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200 shadow-sm">
-                                    <img src="fuyanmeibai-fengmian.jpg"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out"
-                                        alt="肤研美白封面">
-                                    <div
-                                        class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/30">
-                                        <i class="fas fa-play text-white text-[10px] ml-0.5"></i></div>
-                                </div>
-                                <h4 onclick="openVideo('BV1jNFUz5Ew3'); event.stopPropagation();"
-                                    class="text-sm font-bold text-zinc-800 tracking-wide text-center group-hover:text-green-600 transition-colors line-clamp-1">
-                                    肤研美白 · 祛斑美白精华液</h4>
-                                <p class="text-[10px] text-zinc-400 text-center mt-0.5">美妆护肤 / 薅羊毛强钩子</p>
-                            </div>
-                            <div
-                                class="video-card group cursor-pointer flex flex-col h-full relative rounded-2xl transition-all duration-300">
-                                <div onclick="openVideo('BV1wtcTz3Egw'); event.stopPropagation();"
-                                    class="relative aspect-[9/16] w-full rounded-xl overflow-hidden mb-3 bg-zinc-100 border border-zinc-200 shadow-sm">
-                                    <img src="jxr.jpg"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out"
-                                        alt="鸡胸肉封面">
-                                    <div
-                                        class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/30">
-                                        <i class="fas fa-play text-white text-[10px] ml-0.5"></i></div>
-                                </div>
-                                <h4 onclick="openVideo('BV1wtcTz3Egw'); event.stopPropagation();"
-                                    class="text-sm font-bold text-zinc-800 tracking-wide text-center group-hover:text-green-600 transition-colors line-clamp-1">
-                                    口袋即食鸡胸肉</h4>
-                                <p class="text-[10px] text-zinc-400 text-center mt-0.5">低脂轻食 / 痛点场景代入</p>
-                            </div>
-                        </div>
-                        <div
-                            class="lg:col-span-2 flex flex-col justify-between bg-zinc-50/50 border border-zinc-100 rounded-2xl p-5 md:p-6">
-                            <div>
-                                <div
-                                    class="flex items-center gap-1.5 text-[10px] text-zinc-400 font-semibold uppercase tracking-wider mb-3">
-                                    <i class="fas fa-ad text-green-500"></i><span>Feeds Case Study / 电商转化复盘</span></div>
-                                <div class="flex flex-wrap gap-1 mb-4"><span
-                                        class="bg-green-50 text-green-600 text-[9px] px-1.5 py-0.5 rounded font-medium">电商信息流</span><span
-                                        class="bg-green-50 text-green-600 text-[9px] px-1.5 py-0.5 rounded font-medium">高转化钩子</span><span
-                                        class="bg-green-50 text-green-600 text-[9px] px-1.5 py-0.5 rounded font-medium">黄金3秒破局</span>
-                                </div>
-                                <div class="space-y-4">
-                                    <div>
-                                        <h5 class="text-xs font-bold text-zinc-800 flex items-center gap-1.5 mb-1.5">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> 核心痛点与留存策略</h5>
-                                        <p class="text-zinc-600 text-[11px] leading-relaxed pl-3 text-justify">
-                                            电商信息流广告的黄金生死线在前3秒。美妆类和轻食类产品极易陷入"纯卖货"的自嗨无聊感。为了强行留人，我将两支视频的开篇策略全面重塑：美肌片采用"强福利薅羊毛"高分贝钩子直接砸向用户，鸡胸肉则精准切入"天天吃草、受不了"的减肥痛苦场景，用强烈的视觉和情绪共鸣，死死卡住前3秒的流失率。
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <h5 class="text-xs font-bold text-zinc-800 flex items-center gap-1.5 mb-1.5">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> 高转化剪辑视觉锤</h5>
-                                        <p class="text-zinc-600 text-[11px] leading-relaxed pl-3 text-justify">
-                                            全片摈弃任何拖沓的转场，完全依附产品卖点进行节奏快剪。运用"放大局部、多盒叠放"形成视觉冲击，配合拉丝质感、微距展示、成分打字机等"信任视觉锤"快速建立产品说服力。同时通过高频的音效卡点与醒目的引导组件，引导用户直奔评论区或购买链接，缩短转化路径。
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="border-t border-zinc-200/60 pt-3 mt-4 flex items-center justify-between gap-2 text-[11px]">
-                                <div class="flex items-center gap-1 text-zinc-400 text-[10px]"><i
-                                        class="fas fa-tools"></i><span>核心工具：</span></div>
-                                <div class="flex flex-wrap gap-1"><span
-                                        class="bg-zinc-800 text-zinc-100 px-1.5 py-0.5 rounded font-mono text-[9px]">剪映专业版</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <!-- ========== 联系 & 预约 ========== -->
+    <footer id="contact" class="py-16 px-6 bg-zinc-900 text-white border-t border-zinc-800">
+        <div class="max-w-4xl mx-auto text-center">
+            <h3 class="text-3xl font-bold mb-2">Let's Create Together!</h3>
+            <p class="text-zinc-400 mb-6">如果你有项目合作需求，欢迎预约沟通或直接联系。</p>
+            <div class="flex flex-wrap justify-center gap-6 md:gap-10 mb-8">
+                <div class="flex items-center gap-3 bg-zinc-800/50 px-4 py-2 rounded-full">
+                    <i class="fab fa-weixin text-green-400 text-xl"></i>
+                    <span class="text-sm">G1980019029</span>
+                </div>
+                <div class="flex items-center gap-3 bg-zinc-800/50 px-4 py-2 rounded-full">
+                    <i class="fas fa-envelope text-blue-400 text-xl"></i>
+                    <span class="text-sm">1980019029@qq.com</span>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Footer 联系方式 -->
-    <footer id="contact" class="py-24 bg-white border-t border-zinc-200">
-        <div class="max-w-4xl mx-auto text-center px-6">
-            <h3 class="text-3xl font-bold mb-8 italic text-zinc-900">Let's Create Together!</h3>
-            <p class="text-zinc-500 mb-12">如果你有项目合作需求，欢迎通过以下方式找到我：</p>
-            <div class="flex flex-wrap justify-center gap-6 md:gap-12">
-                <div class="flex items-center gap-3"><i class="fab fa-weixin text-green-600 text-2xl"></i><span
-                        class="font-medium text-zinc-700">微信号: G1980019029</span></div>
-                <div class="flex items-center gap-3"><i class="fas fa-envelope text-blue-600 text-2xl"></i><span
-                        class="font-medium text-zinc-700">Email: 1980019029@qq.com</span></div>
-            </div>
-            <p class="mt-16 text-zinc-400 text-xs">2026 Video Editor Portfolio.</p>
+            <a href="#" class="inline-block bg-orange-500 hover:bg-orange-600 px-8 py-3 rounded-full font-semibold transition shadow-lg shadow-orange-500/20 text-sm">
+                <i class="fas fa-calendar-check mr-2"></i> 立即预约 15 分钟沟通
+            </a>
+            <p class="mt-8 text-zinc-500 text-xs">© 2026 龚芷利 · 视频剪辑作品集</p>
         </div>
     </footer>
 
-    <!-- 视频模态框 -->
+    <!-- ========== 视频模态框 ========== -->
     <div id="videoModal" class="modal" onclick="closeVideo()">
-        <div class="absolute top-8 right-8 text-3xl cursor-pointer hover:text-orange-500 text-white"><i
-                class="fas fa-times"></i></div>
+        <div class="absolute top-8 right-8 text-3xl cursor-pointer hover:text-orange-500 text-white" onclick="closeVideo()">
+            <i class="fas fa-times"></i>
+        </div>
         <div class="iframe-container" onclick="event.stopPropagation()">
             <iframe id="player" src="" frameborder="0" allowfullscreen="true"></iframe>
         </div>
     </div>
 
+    <!-- ========== JavaScript ========== -->
     <script>
         const modal = document.getElementById('videoModal');
         const player = document.getElementById('player');
 
         function openVideo(bvid) {
             if (!bvid) return;
-            const url = `https://player.bilibili.com/player.html?bvid=${bvid}&page=1&high_quality=1&autoplay=1&danmaku=0&as_wide=1`;
+            const url =
+                `https://player.bilibili.com/player.html?bvid=${bvid}&page=1&high_quality=1&autoplay=1&danmaku=0&as_wide=1`;
             player.src = url;
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
@@ -639,31 +459,52 @@
             document.body.style.overflow = 'auto';
         }
 
-        function toggleIntro(button) {
-            const content = button.nextElementSibling;
-            const icon = button.querySelector('i');
-            if (content.style.height && content.style.height !== '0px') {
-                content.style.height = '0px';
-                icon.style.transform = 'rotate(0deg)';
-            } else {
-                content.style.height = content.scrollHeight + 'px';
-                icon.style.transform = 'rotate(180deg)';
-            }
-        }
-
-        function openDetailModal(id) {
-            const target = document.getElementById(id);
-            if (target) target.style.display = 'block';
-        }
-        function closeDetailModal(id) {
-            const target = document.getElementById(id);
-            if (target) target.style.display = 'none';
-        }
-
-        document.onkeydown = function (e) {
+        document.onkeydown = function(e) {
             if (e.key === 'Escape') closeVideo();
         };
+
+        // 分类筛选
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.work-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const filter = this.dataset.filter;
+                cards.forEach(card => {
+                    card.style.display = (filter === 'all' || card.dataset.category === filter) ? 'block' :
+                        'none';
+                });
+            });
+        });
+
+        // 展开/折叠
+        function toggleIntro(btn) {
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('i');
+            content.classList.toggle('open');
+            icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        // 轮播
+        let currentSlide = 0;
+        const items = document.querySelectorAll('.carousel-item');
+        const indicators = document.querySelectorAll('.carousel-indicators span');
+
+        function goToSlide(index) {
+            items.forEach((el, i) => el.style.opacity = i === index ? '1' : '0');
+            indicators.forEach((dot, i) => dot.style.background = i === index ? 'rgba(255,255,255,0.9)' :
+            'rgba(255,255,255,0.3)');
+            currentSlide = index;
+        }
+        indicators.forEach(dot => dot.addEventListener('click', function() {
+            goToSlide(parseInt(this.dataset.index));
+        }));
+        setInterval(() => goToSlide((currentSlide + 1) % items.length), 5000);
+        goToSlide(0);
     </script>
+
 </body>
 
 </html>
